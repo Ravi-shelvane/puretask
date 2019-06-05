@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mat-drawer {
+    background: #2799FC;
+    color: #fff;
+}
+.mat-toolbar.mat-primary {
+    background: #2799FC;
+    color: #fff;
+}
+.mat-list .mat-list-item, .mat-nav-list .mat-list-item, .mat-selection-list .mat-list-item {
+    color: rgba(246, 236, 236, 0.87);
+}
+.mat-list .mat-list-item:active{
+    background: #3d94df;
+    color: #fff;
+}
+.mat-list-item-content {
+    color: #fff;
+}
+
+
+svg{
+    height: 35px !important;
+    width: 75px !important;
+}

@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-md-6">
+      <ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>
+ 
+  </div>
+  <div class="col-md-6">
+      <div class="form-group">
+          <label for="sel1" class="comman-blue">Event*</label>
+          <select class="form-control" [(ngModel)]="selectedEvent" name="event">
+            <option [value]="" [selected]="selected">Select event</option>
+            <option *ngFor="let event of events" [value]="event.value">{{event.viewValue}}</option>
+          </select>
+        </div>
+        <div>
+          <input type="color" value=""><br><br>
+        </div>
+        <div>
+            <button type="button" class="btn btn-info">Submit</button>
+ 
+        </div>
+  </div>  

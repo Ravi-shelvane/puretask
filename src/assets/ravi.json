@@ -1,0 +1,24 @@
+[
+    {
+        "id":"1",
+        "name":"Dhoni",
+        "role":"Bat,WC"
+    },
+
+    {
+        "id":"2",
+        "name":"Rohit",
+        "role":"Bat"
+    },
+    {
+        "id":"3",
+        "name":"Virat",
+        "role":"Bat"
+    },
+    {
+        "id":"4",
+        "name":"Jadeja",
+        "role":"ALL Rounder"
+    }
+   
+]

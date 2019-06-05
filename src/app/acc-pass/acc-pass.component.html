@@ -1,0 +1,151 @@
+<!-- acc-pass.component.html file code-->
+<div>
+  <h4 class="comman-blue">Add/Manage Accreditation Pass</h4>
+</div>
+<div class="main">
+  <div class="container">
+      <div class="row">
+        <div class="col-md-5">
+            <h5 class="comman-blue">Accreditation Pass</h5>
+            <hr>  
+          <div class="row left-div" *ngIf="pass.length != 0 && pass.length != 'null'">
+              <div class="col-md-12 img-12 mg-20">
+                <div class="col-md-5 float-left guest-img-dev"> 
+                    <img class="guest-img" src="{{pass.guestImageUrl}}">
+                </div> 
+                <div class="col-md-7 float-left event-img-dev">
+                  <div class="col-md-12 mg-20 event-img-12"><img class="event-img" src="{{pass.eventImageUrl}}"></div>
+                  <div class="col-md-12">
+                      <div class="offset-md-4 col-md-3 acc-type  text-capitalize">{{pass.type}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+
+                <div class="mg-10"><strong>{{pass.guest_name}}</strong></div>
+                <div class="mg-10">{{pass.event_name}}</div>
+                <div class="mg-10">{{pass.venue}}</div>
+                <div class="mg-10"><ngx-barcode [bc-value]="546465445" [bc-display-value]="false"></ngx-barcode></div>
+                <div class="mg-10 entry-gate-div  text-capitalize">{{pass.event}}</div>
+                <div class="mg-10">
+                    <span class="entry-gate">{{pass.gates}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="row" *ngIf="pass.length == 0 || pass.length == 'null'">
+              <div class="col-md-12">
+                <span>You have not created pass. So, Firstly create pass to show pass info.</span>
+              </div>    
+            </div>
+        </div>
+        <div class="col-md-1">
+          <div class="line"></div>
+        </div>
+          <div class="col-md-6">
+              <h5 class="comman-blue">Create pass</h5>
+                         
+               <form id="acc-pass-form" name="acc-pass-form" (ngSubmit)="onSubmit(form_reference.value)" #form_reference="ngForm">
+                  <hr> 
+                  <div class="form-group">
+                    <label for="sel1" class="comman-blue">Event*</label>
+                    <select class="form-control" [(ngModel)]="selectedEvent" name="event">
+                      <option [value]="" [selected]="selected">Select event</option>
+                      <option *ngFor="let event of events" [value]="event.value">{{event.viewValue}}</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                      <label for="sel1" class="comman-blue">Type*</label>
+                      <select class="form-control" [(ngModel)]="selectedType" name="type">
+                        <option [value]="" [selected]="selected">Select type</option>
+                        <option *ngFor="let type of types" [value]="type.value">{{type.viewValue}}</option>
+                      </select>
+                    </div>
+  
+
+                  <div class="form-group">
+                      <label for="venue" class="comman-blue">Venue*</label>
+                      <!--first name input field-->
+                      <input type="text" class="form-control" name="venue"  #venue_reference="ngModel" ngModel required />
+                      <!-- checking first name validation and show validation messages related to valid rule-->
+                      <div *ngIf="venue_reference.errors && (venue_reference.dirty || venue_reference.touched)" class="text-danger">
+                        <div [hidden]="!venue_reference.errors.required">
+                          Please enter venue.
+                        </div>
+                       
+                      </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label for="guestName" class="comman-blue">Guest Name*</label>
+                    <!--last name input field-->
+                    <input type="text" class="form-control" name="guest_name"  #guest_name_reference="ngModel" ngModel required pattern="^[a-zA-Z][a-zA-Z ]+"/>
+                    <!-- checking last name validation and show validation messages related to valid rule-->
+                    <div *ngIf="guest_name_reference.errors && (guest_name_reference.dirty || guest_name_reference.touched)" class="text-danger">
+                      <div [hidden]="!guest_name_reference.errors.required">
+                        Please enter guest name.
+                      </div>
+                      <div [hidden]="!guest_name_reference.errors.pattern">
+                        Please enter only alphabetic value.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="gates" class="comman-blue">Entry Gates*</label>
+                    <!--last name input field-->
+                    <input type="text" class="form-control" name="gates"  #gates_reference="ngModel" ngModel required pattern="^[a-zA-Z]+"/>
+                    <!-- checking last name validation and show validation messages related to valid rule-->
+                    <div *ngIf="gates_reference.errors && (gates_reference.dirty || gates_reference.touched)" class="text-danger">
+                      <div [hidden]="!gates_reference.errors.required">
+                        Please enter guest name.
+                      </div>
+                      <div [hidden]="!gates_reference.errors.pattern">
+                        Please enter only alphabetic value.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                      <label for="guestImage" class="comman-blue">Guest Image*</label>
+                      <!--last guest image input field-->
+                      <input type="file" class="form-control" id="guest_image" name="guest_image" (change)="onGuestFileChange($event)" #guest_image_reference="ngModel" ngModel required />
+                      <div *ngIf="guest_image_reference.errors && (guest_image_reference.dirty || guest_image_reference.touched)" class="text-danger">
+                          <div [hidden]="!guest_image_reference.errors.required">
+                            Please select guest image.
+                          </div>
+                      </div>
+                      <div [hidden]="guestImageFlag"  class="text-danger">
+                          Selected file format is not supported.
+                      </div>
+                      <div [hidden]="guestImageSizeFlag"  class="text-danger">
+                          Please select file which is below 500kb size.
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="eventImage" class="comman-blue">Event Image*</label>
+                      <!--last guest image input field-->
+                      <input type="file" class="form-control" id="event_image" name="event_image" (change)="onEventFileChange($event)" #event_image_reference="ngModel" ngModel required />
+                      <div *ngIf="event_image_reference.errors && (event_image_reference.dirty || event_image_reference.touched)" class="text-danger">
+                          <div [hidden]="!event_image_reference.errors.required">
+                            Please select event image.
+                          </div>
+                          
+                      </div>
+                      <div [hidden]="eventImageFlag" class="text-danger">
+                          Selected file format is not supported.
+                      </div>
+                      <div [hidden]="eventImageSizeFlag"  class="text-danger">
+                          Please select file which is below 500kb size.
+                      </div>
+                  </div>
+
+                  <div class="form-group">
+                      <button class="btn btn-primary" [disabled]="!(form_reference.form.valid)">Submit</button>
+                  </div>  
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
